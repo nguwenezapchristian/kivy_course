@@ -6,6 +6,15 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.metrics import dp
+from kivy.properties import StringProperty
+
+
+class ButtonWidgetExample(GridLayout):
+    my_text = StringProperty("Hello")
+    def on_press_func(self):
+        print("I Love Coding")
+        self.my_text = "Button clicked!"
+
 
 
 class StackLayoutExample(StackLayout):

@@ -1,5 +1,13 @@
-PageLayoutExample:
+ButtonWidgetExample:
 
+
+<ButtonWidgetExample@GridLayout>:
+    cols: 2
+    Button:
+        text: "Click Me"
+        on_press: root.on_press_func()
+    Label:
+        text: root.my_text
 
 <PageLayoutExample@PageLayout>:
     MainWidget:
@@ -7,7 +15,6 @@ PageLayoutExample:
     AnchorLayoutExample:
     ScrollViewExample:
     
-
 
 <ScrollViewExample@ScrollView>:
     StackLayoutExample:
