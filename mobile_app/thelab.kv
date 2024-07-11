@@ -1,0 +1,85 @@
+ScrollViewExample:
+
+
+<ScrollViewExample@ScrollView>:
+    StackLayoutExample:
+        # you have to specify the size and height of content
+        size_hint: 1, None
+        height: self.minimum_height
+    # it takes one widget
+    # GridLayoutExample:
+    
+
+
+<StackLayoutExample>:
+    # left-right, top-bottom
+    # orientation: "lr-tb"
+    orientation: "lr-tb"
+
+<GridLayoutExample@GridLayout>:
+    # you have to specify the rows or col
+    # rows: 2
+    cols: 3
+    Button:
+        text: "A"
+    # Button:
+    #     text: "B"
+    BoxLayoutExample:
+    Button:
+        text: "C"
+    Button:
+        text: "D"
+    Button:
+        text: "E"
+    # AnchorLayoutExample:
+    Button:
+        text: "F"
+
+<AnchorLayoutExample>:
+    # anchor x or y: left, right, top, bottom, center
+    anchor_x: "center"
+    anchor_y: "top"
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint: .2, .2
+
+        Button:
+            text: "A"
+            # size_hint: .1, .1
+        Button:
+            text: "B"
+            # size_hint: .1, .1
+
+
+<BoxLayoutExample>:
+    orientation: "horizontal"
+    Button:
+        text: "A"
+        # size_hint: .5, 1
+        size_hint: None, None
+        width: "40dp"
+        height: "40dp"
+        # center_x, center_y, x, y
+        pos_hint: {"center_x": .50}
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Button:
+            text: "B1"
+        Button:
+            text: "B2"
+        Button:
+            text: "B3"
+    Label:
+        text: "C"
+
+
+<MainWidget>:
+    Button:
+        text: "Hello"
+        size: "40dp", "40dp"
+        pos: "100dp", "200dp"
+    Label:
+        text: "Submit"
+        size: "50dp", "40dp"
+        pos: "200dp", "200dp"
