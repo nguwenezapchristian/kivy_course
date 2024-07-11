@@ -10,10 +10,15 @@ from kivy.properties import StringProperty
 
 
 class ButtonWidgetExample(GridLayout):
-    my_text = StringProperty("Hello")
+    my_text = StringProperty("1")
+    count = 1
     def on_press_func(self):
         print("I Love Coding")
-        self.my_text = "Button clicked!"
+        self.count += 1
+        self.my_text = f"{self.count}"
+    def reset_count(self):
+        self.count = 1
+        self.my_text = f"{self.count}"
 
 
 

@@ -2,12 +2,17 @@ ButtonWidgetExample:
 
 
 <ButtonWidgetExample@GridLayout>:
-    cols: 2
+    cols: 3
     Button:
-        text: "Click Me"
+        text: "Count"
         on_press: root.on_press_func()
+        # size: .1, .1
     Label:
         text: root.my_text
+    Button:
+        text: "Reset"
+        on_press: root.reset_count()
+        # size: .1, .1
 
 <PageLayoutExample@PageLayout>:
     MainWidget:
