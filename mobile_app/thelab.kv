@@ -2,7 +2,15 @@ ButtonWidgetExample:
 
 
 <ButtonWidgetExample@GridLayout>:
-    cols: 3
+    cols: 4
+    ToggleButton:
+        text: "OFF"
+        size_hint: None, 1
+        width: "100dp"
+        font_name: "fonts/Lcd.ttf"
+        font_size: "40dp"
+        color: 1, .5, 1, 1
+        on_state: root.on_state_toggle_button(self)
     Button:
         text: "Count"
         on_press: root.on_press_func()

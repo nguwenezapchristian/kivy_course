@@ -13,12 +13,26 @@ class ButtonWidgetExample(GridLayout):
     my_text = StringProperty("1")
     count = 1
     def on_press_func(self):
+        """
+        This function will be called when the button is pressed"""
         print("I Love Coding")
         self.count += 1
         self.my_text = f"{self.count}"
     def reset_count(self):
+        """
+        This function will be called when the button is pressed"""
         self.count = 1
         self.my_text = f"{self.count}"
+    def on_state_toggle_button(self, toggleButton):
+        """
+        This function will be called when the button is pressed"""
+        print("ToggleButton State: ", toggleButton.state)
+        if toggleButton.state == "normal":
+            #OFF
+            toggleButton.text = "OFF"
+        else:
+            #ON
+            toggleButton.text = "ON"
 
 
 
