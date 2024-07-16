@@ -3,6 +3,7 @@ ButtonWidgetExample:
 
 <ButtonWidgetExample@GridLayout>:
     cols: 4
+    rows: 2
     ToggleButton:
         text: "OFF"
         size_hint: None, 1
@@ -32,6 +33,23 @@ ButtonWidgetExample:
         font_size: "80dp"
         color: 1, .5, 1, 1
         disabled: not root.count_enabled
+    Switch:
+        size_hint: None, 1
+        width: "100dp"
+    Slider:
+        id: mySlider
+        min: 0
+        max: 100
+        # value: 50
+        # on_value: root.on_slide_value(self)
+        orientation: "vertical"
+    Label:
+        # text: root.slide_value_txt
+        text: str(int(mySlider.value))
+        font_name: "fonts/Lcd.ttf"
+        font_size: "80dp"
+        color: 1, 0.5, 1, 1
+
 
 <PageLayoutExample@PageLayout>:
     MainWidget:

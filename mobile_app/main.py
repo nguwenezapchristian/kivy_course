@@ -13,6 +13,7 @@ class ButtonWidgetExample(GridLayout):
     my_text = StringProperty("1")
     count = 1
     count_enabled = BooleanProperty(None)
+    # slide_value_txt = StringProperty("0")
 
     def on_press_func(self):
         """
@@ -41,6 +42,10 @@ class ButtonWidgetExample(GridLayout):
             # ON
             toggleButton.text = "ON"
             self.count_enabled = True
+    
+    # def on_slide_value(self, slideWidget):
+    #     print(str(int(slideWidget.value)))
+    #     self.slide_value_txt = str(int(slideWidget.value))
 
 class StackLayoutExample(StackLayout):
     def __init__(self, **kwargs):
