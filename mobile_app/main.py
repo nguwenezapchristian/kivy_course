@@ -6,35 +6,41 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.metrics import dp
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, BooleanProperty
 
 
 class ButtonWidgetExample(GridLayout):
     my_text = StringProperty("1")
     count = 1
+    count_enabled = BooleanProperty(None)
+
     def on_press_func(self):
         """
         This function will be called when the button is pressed"""
         print("I Love Coding")
-        self.count += 1
-        self.my_text = f"{self.count}"
+
+        if self.count_enabled:
+            self.count += 1
+            self.my_text = f"{self.count}"
+
     def reset_count(self):
         """
         This function will be called when the button is pressed"""
         self.count = 1
         self.my_text = f"{self.count}"
+
     def on_state_toggle_button(self, toggleButton):
         """
         This function will be called when the button is pressed"""
         print("ToggleButton State: ", toggleButton.state)
         if toggleButton.state == "normal":
-            #OFF
+            # OFF
             toggleButton.text = "OFF"
+            self.count_enabled = False
         else:
-            #ON
+            # ON
             toggleButton.text = "ON"
-
-
+            self.count_enabled = True
 
 class StackLayoutExample(StackLayout):
     def __init__(self, **kwargs):
@@ -53,6 +59,7 @@ class StackLayoutExample(StackLayout):
 class AnchorLayoutExample(AnchorLayout):
     pass
 
+
 class BoxLayoutExample(BoxLayout):
     # def __init__(self, **kwargs):
     #     super().__init__(**kwargs)
@@ -67,11 +74,13 @@ class BoxLayoutExample(BoxLayout):
     #     self.add_widget(b3)
     pass
 
+
 class MainWidget(Widget):
     pass
+
 
 class TheLabApp(App):
     pass
 
-TheLabApp().run()
 
+TheLabApp().run()
