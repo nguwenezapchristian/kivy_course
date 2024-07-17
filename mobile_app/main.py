@@ -13,6 +13,7 @@ class ButtonWidgetExample(GridLayout):
     my_text = StringProperty("1")
     count = 1
     count_enabled = BooleanProperty(None)
+    text_input_str = StringProperty("")
     # slide_value_txt = StringProperty("0")
 
     def on_press_func(self):
@@ -46,6 +47,10 @@ class ButtonWidgetExample(GridLayout):
     # def on_slide_value(self, slideWidget):
     #     print(str(int(slideWidget.value)))
     #     self.slide_value_txt = str(int(slideWidget.value))
+
+    def text_input_validate(self, text_input):
+        """ Validate the text when Enter pressed """
+        self.text_input_str = text_input.text
 
 class StackLayoutExample(StackLayout):
     def __init__(self, **kwargs):

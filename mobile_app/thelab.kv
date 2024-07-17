@@ -57,6 +57,16 @@ ButtonWidgetExample:
         ProgressBar:
             max: 100
             value: mySlider.value
+    BoxLayout:
+        orientation: "vertical"
+        TextInput:
+            id: my_text_input
+            text: "Chris"
+            multiline: False
+            on_text_validate: root.text_input_validate(self)
+        Label:
+            # text: my_text_input.text
+            text: "Your name is: " + root.text_input_str
 
 
 <PageLayoutExample@PageLayout>:
