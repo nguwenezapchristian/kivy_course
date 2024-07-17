@@ -34,8 +34,10 @@ ButtonWidgetExample:
         color: 1, .5, 1, 1
         disabled: not root.count_enabled
     Switch:
+        id: my_switch
         size_hint: None, 1
         width: "100dp"
+        active: True
     Slider:
         id: mySlider
         min: 0
@@ -43,6 +45,7 @@ ButtonWidgetExample:
         # value: 50
         # on_value: root.on_slide_value(self)
         orientation: "vertical"
+        disabled: not my_switch.active
     Label:
         # text: root.slide_value_txt
         text: str(int(mySlider.value))
