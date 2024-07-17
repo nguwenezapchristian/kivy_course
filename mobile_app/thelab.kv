@@ -46,12 +46,17 @@ ButtonWidgetExample:
         # on_value: root.on_slide_value(self)
         orientation: "vertical"
         disabled: not my_switch.active
-    Label:
-        # text: root.slide_value_txt
-        text: str(int(mySlider.value))
-        font_name: "fonts/Lcd.ttf"
-        font_size: "80dp"
-        color: 1, 0.5, 1, 1
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            # text: root.slide_value_txt
+            text: str(int(mySlider.value))
+            font_name: "fonts/Lcd.ttf"
+            font_size: "60dp"
+            color: 1, 0.5, 1, 1
+        ProgressBar:
+            max: 100
+            value: mySlider.value
 
 
 <PageLayoutExample@PageLayout>:
