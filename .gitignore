@@ -1,0 +1,4 @@
+# ignore the virtual environment directory
+/venv
+# ignore python compiled files
+/.mypy_cache
