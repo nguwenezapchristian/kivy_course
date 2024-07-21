@@ -1,4 +1,4 @@
-ExampleGridLayout:
+ExampleGridLayout2:
 
 #:set s dp(150)
 
@@ -15,3 +15,12 @@ ExampleGridLayout:
         Ellipse:
             pos: self.center_x-s*1.5, self.center_y-s/2
             size: s, s/2
+
+<ExampleGridLayout2@GridLayout>:
+    canvas:
+        Line:
+            points: (0, self.height/2, self.width, self.height/2)
+            width: dp(2)
+        Line:
+            points: (self.width/2, 0, self.width/2, self.height)
+            width: 2
