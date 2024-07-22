@@ -3,6 +3,11 @@ ExampleCanvas4:
 #:set s dp(150)
 
 <ExampleCanvas4>:
+    Button:
+        text: "Push"
+        size: s/2, s/2
+        on_press: root.on_click_action()
+        pos: 0, 300
 
 <ExampleGridLayout@GridLayout>:
     cols: 3
