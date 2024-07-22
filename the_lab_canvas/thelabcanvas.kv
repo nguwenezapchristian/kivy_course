@@ -1,6 +1,8 @@
-ExampleGridLayout2:
+ExampleCanvas4:
 
 #:set s dp(150)
+
+<ExampleCanvas4>:
 
 <ExampleGridLayout@GridLayout>:
     cols: 3
@@ -24,3 +26,12 @@ ExampleGridLayout2:
         Line:
             points: (self.width/2, 0, self.width/2, self.height)
             width: 2
+
+<ExampleWidget3@Widget>:
+    canvas:
+        Line:
+            circle: (200, 100, 50) # center_x, center_y, radius
+        Line:
+            ellipse: (100, 200, 100, 50) # x, y, radius_x, radius_y
+        Line:
+            rectangle: (300, 150, 200, 80) # x, y, w, h
