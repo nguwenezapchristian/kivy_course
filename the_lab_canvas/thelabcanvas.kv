@@ -1,4 +1,4 @@
-ExampleCanvas5:
+ExampleCanvas6:
 
 #:set s dp(150)
 
@@ -42,3 +42,29 @@ ExampleCanvas5:
             ellipse: (100, 200, 100, 50) # x, y, radius_x, radius_y
         Line:
             rectangle: (300, 150, 200, 80) # x, y, w, h
+
+<ExampleCanvas6@BoxLayout>:
+    orientation: 'vertical'
+    size: root.size
+    RelativeLayout:
+        canvas:
+            Color:
+                rgb: 0, 0.63, 0.87
+            Rectangle:
+                size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        RelativeLayout:
+            canvas:
+                Color:
+                    rgb: .98, .82, .004
+                Rectangle:
+                    size: self.size
+        RelativeLayout:
+            canvas:
+                Color:
+                    rgb: .125, .38, .24
+                Rectangle:
+                    size: self.size
+            
+    
