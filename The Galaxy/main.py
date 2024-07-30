@@ -51,10 +51,29 @@ class MainWidget(Widget):
         with self.canvas:
             for i in range(0, self.NB_LINES):
                 x = int(central_line_x + offset * spacing)
+                x1, y1 = self.transform(x, 0)
+                x2, y2 = self.transform(x, self.height) 
                 self.vertical_lines[i].points = (
-                    x, 0, x, self.height)
+                    x1, y1, x2, y2)
                 offset += 1
+    
+    def transform(self, x, y):
+        return self.transform_2D(x, y)
+        # return self.transform_perspective(x, y)
+    
+    def transform_2D(self, x, y):
+        return int(x), int(y)
+    
+    def transform_perspective(self, x, y):
+        tr_y = y * self.perspective_point_y / self.height
+        if tr_y > self.perspective_point_y:
+            tr_y = self.perspective_point_y
 
+        diff_x = x - self.perspective_point_x
+        diff_y = self.perspective_point_y - tr_y
+        factor_y = diff_y / self.perspective_point_y # equal 1 if perspective_y == dff_y, 0 if dff_y == 0
+        tr_x = self.perspective_point_x + diff_x*factor_y
+        return int(tr_x), int(tr_y)
 
 class GalaxyApp(App):
     pass
