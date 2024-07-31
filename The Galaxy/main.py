@@ -1,3 +1,7 @@
+from kivy.config import Config
+Config.set('graphics', 'width', '900')
+Config.set('graphics', 'height', '400')
+
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
@@ -16,8 +20,11 @@ class MainWidget(Widget):
     horizontal_lines = []
     H_NB_LINES = 15
     H_LINE_SPACING = .1  #percentage of the screen height
+
     current_offset_y = 0
     SPEED = 4
+    current_offset_x = 0
+    SPEED_X = 3
 
 
     def __init__(self, **kwargs):
@@ -62,7 +69,7 @@ class MainWidget(Widget):
         offset = -int(self.V_NB_LINES/2) + 0.5
         with self.canvas:
             for i in range(0, self.V_NB_LINES):
-                x = int(central_line_x + offset * spacing)
+                x = int(central_line_x + offset * spacing) + self.current_offset_x #move to R
                 x1, y1 = self.transform(x, 0)
                 x2, y2 = self.transform(x, self.height)
                 self.vertical_lines[i].points = (
@@ -81,8 +88,8 @@ class MainWidget(Widget):
         central_line_x = int(self.width / 2)
         spacing = self.width * self.V_LINE_SPACING
         offset = -int(self.V_NB_LINES/2) + 0.5
-        min_x = central_line_x + offset*spacing
-        max_x = central_line_x - offset*spacing
+        min_x = central_line_x + offset*spacing + self.current_offset_x #move to R
+        max_x = central_line_x - offset*spacing + self.current_offset_x #move to R
         spacing_y = self.H_LINE_SPACING*self.height
         with self.canvas:
             for i in range(0, self.V_NB_LINES):
@@ -113,13 +120,19 @@ class MainWidget(Widget):
         return int(tr_x), int(tr_y)
     
     def update(self, dt):
-        # print("Updated")
+        """ delta time is the time btn function calls
+        in this case the time btn update calls"""
+        # print(f"dt: {dt*60}, 1/60: {1.0/60.0}")
+        time_factor = dt*60
         self.update_vertical_lines()
         self.update_horizontal_lines()
-        self.current_offset_y += self.SPEED
+        self.current_offset_y += self.SPEED * time_factor
         spacing_y = self.H_LINE_SPACING*self.height
+
         if self.current_offset_y >= spacing_y:
             self.current_offset_y -= spacing_y
+        
+        self.current_offset_x += self.SPEED_X * time_factor
 
 class GalaxyApp(App):
     pass
