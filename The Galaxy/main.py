@@ -3,6 +3,8 @@ from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.graphics.context_instructions import Color
 from kivy.graphics.vertex_instructions import Line
+from kivy.properties import Clock
+
 
 class MainWidget(Widget):
     perspective_point_x = NumericProperty(0)
@@ -14,6 +16,8 @@ class MainWidget(Widget):
     horizontal_lines = []
     H_NB_LINES = 15
     H_LINE_SPACING = .1  #percentage of the screen height
+    current_offset_y = 0
+    SPEED = 4
 
 
     def __init__(self, **kwargs):
@@ -21,6 +25,7 @@ class MainWidget(Widget):
         #print(f"X: {self.width}, Y: {self.height}")
         self.init_vertical_lines()
         self.init_horizontal_lines()
+        Clock.schedule_interval(self.update, 1.0/60.0)
 
     
     def on_parent(self, *args):
@@ -31,8 +36,9 @@ class MainWidget(Widget):
         # print(f"X: {self.width}, Y: {self.height}")
         # self.perspective_point_x = self.width / 2
         # self.perspective_point_y = self.height * .75
-        self.update_vertical_lines()
-        self.update_horizontal_lines()
+        # self.update_vertical_lines()
+        # self.update_horizontal_lines()
+        pass
     
     def on_perspective_point_x(self, widget, value):
         print(f"PX: {str(value)}")
@@ -77,9 +83,10 @@ class MainWidget(Widget):
         offset = -int(self.V_NB_LINES/2) + 0.5
         min_x = central_line_x + offset*spacing
         max_x = central_line_x - offset*spacing
+        spacing_y = self.H_LINE_SPACING*self.height
         with self.canvas:
             for i in range(0, self.V_NB_LINES):
-                y = 0 + i*self.H_LINE_SPACING*self.height
+                y = 0 + i*spacing_y - self.current_offset_y
                 x1, y1 = self.transform(min_x, y)
                 x2, y2 = self.transform(max_x, y)
                 self.horizontal_lines[i].points = (
@@ -104,6 +111,15 @@ class MainWidget(Widget):
         tr_x = self.perspective_point_x + diff_x*factor_y
         tr_y = self.perspective_point_y - factor_y*self.perspective_point_y
         return int(tr_x), int(tr_y)
+    
+    def update(self, dt):
+        # print("Updated")
+        self.update_vertical_lines()
+        self.update_horizontal_lines()
+        self.current_offset_y += self.SPEED
+        spacing_y = self.H_LINE_SPACING*self.height
+        if self.current_offset_y >= spacing_y:
+            self.current_offset_y -= spacing_y
 
 class GalaxyApp(App):
     pass
