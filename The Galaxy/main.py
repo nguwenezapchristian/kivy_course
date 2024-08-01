@@ -75,21 +75,36 @@ class MainWidget(Widget):
             for i in range(0, self.V_NB_LINES):
                 self.vertical_lines.append(Line())
 
+    def get_line_x_from_index(self, index):
+        central_line_x = self.perspective_point_x
+        spacing = self.width * self.V_LINE_SPACING
+        offset = index - 0.5
+        line_x = central_line_x + offset*spacing + self.current_offset_x
+        return line_x
+    
+    def get_line_y_from_index(self, index):
+        spacing_y = self.H_LINE_SPACING*self.height
+        line_y = 0 + index*spacing_y - self.current_offset_y
+        return line_y
+
     def update_vertical_lines(self):
         # center_x = int(self.width / 2)
         # self.line.points = (self.center_x, 0, self.center_x, 100)
-        central_line_x = int(self.width / 2)
-        spacing = self.width * self.V_LINE_SPACING
-        offset = -int(self.V_NB_LINES/2) + 0.5
+        # central_line_x = int(self.width / 2)
+        # spacing = self.width * self.V_LINE_SPACING
+        # offset = -int(self.V_NB_LINES/2) + 0.5
+        start_index = -int(self.V_NB_LINES/2 - 1)
+        end_index = int(self.V_NB_LINES/2) + 1
         with self.canvas:
-            for i in range(0, self.V_NB_LINES):
-                x = int(central_line_x + offset * spacing) + \
-                    self.current_offset_x  # move to R
+            for i in range(start_index, end_index):
+                # x = int(central_line_x + offset * spacing) + \
+                #     self.current_offset_x  # move to R
+                x = self.get_line_x_from_index(i)
                 x1, y1 = self.transform(x, 0)
                 x2, y2 = self.transform(x, self.height)
                 self.vertical_lines[i].points = (
                     x1, y1, x2, y2)
-                offset += 1
+                # offset += 1
 
     def init_horizontal_lines(self):
         with self.canvas:
@@ -99,15 +114,17 @@ class MainWidget(Widget):
                 self.horizontal_lines.append(Line())
 
     def update_horizontal_lines(self):
-        central_line_x = int(self.width / 2)
-        spacing = self.width * self.V_LINE_SPACING
-        offset = -int(self.V_NB_LINES/2) + 0.5
-        min_x = central_line_x + offset*spacing + self.current_offset_x  # move to R
-        max_x = central_line_x - offset*spacing + self.current_offset_x  # move to R
-        spacing_y = self.H_LINE_SPACING*self.height
+        # central_line_x = int(self.width / 2)
+        # spacing = self.width * self.V_LINE_SPACING
+        # offset = -int(self.V_NB_LINES/2) + 0.5
+        start_index = -int(self.V_NB_LINES/2 - 1)
+        end_index = int(self.V_NB_LINES/2) 
+        min_x = self.get_line_x_from_index(start_index)
+        max_x = self.get_line_x_from_index(end_index)
+        # spacing_y = self.H_LINE_SPACING*self.height
         with self.canvas:
             for i in range(0, self.V_NB_LINES):
-                y = 0 + i*spacing_y - self.current_offset_y
+                y = self.get_line_y_from_index(i)
                 x1, y1 = self.transform(min_x, y)
                 x2, y2 = self.transform(max_x, y)
                 self.horizontal_lines[i].points = (
