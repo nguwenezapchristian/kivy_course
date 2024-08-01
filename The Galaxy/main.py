@@ -2,6 +2,7 @@ from kivy.config import Config
 Config.set('graphics', 'width', '900')
 Config.set('graphics', 'height', '400')
 
+import random
 from kivy.graphics import *
 from kivy.properties import Clock
 from kivy.graphics.vertex_instructions import Line
@@ -19,8 +20,8 @@ class MainWidget(Widget):
     perspective_point_x = NumericProperty(0)
     perspective_point_y = NumericProperty(0)
     vertical_lines = []
-    V_NB_LINES = 10
-    V_LINE_SPACING = .25  # percentage of the screen width
+    V_NB_LINES = 8
+    V_LINE_SPACING = .2   # percentage of the screen width
 
     horizontal_lines = []
     H_NB_LINES = 15
@@ -34,7 +35,7 @@ class MainWidget(Widget):
     current_speed_x = 0
     current_y_loop = 0
 
-    NB_TILES = 8
+    NB_TILES = 16
     tiles = []
     # ti_x = 0
     # ti_y = 1
@@ -88,6 +89,7 @@ class MainWidget(Widget):
         """ clean the coordinates that are out of the screen
         ti_y < self.current_y_loop
         """
+        last_x = 0 
         last_y = 0
         for i in range(len(self.tiles_coordinates)-1, -1, -1):
             if self.tiles_coordinates[i][1] < self.current_y_loop:
@@ -95,10 +97,32 @@ class MainWidget(Widget):
         
         if len(self.tiles_coordinates) > 0:
             last_coordinates = self.tiles_coordinates[-1]
+            last_x = last_coordinates[0]
             last_y = last_coordinates[1] + 1
         
         for i in range(len(self.tiles_coordinates), self.NB_TILES):
-            self.tiles_coordinates.append((0, last_y))
+            r = random.randint(0,2)
+            # 0 -> straight
+            # 1 -> right
+            # 2 -> left
+            start_index = -int(self.V_NB_LINES/2) + 1
+            end_index = start_index + self.V_NB_LINES - 1
+            if last_x <= start_index:
+                r = 1
+            if last_x >= end_index:
+                r = 2
+            self.tiles_coordinates.append((last_x, last_y))
+            if r == 1:
+                last_x += 1
+                self.tiles_coordinates.append((last_x, last_y))
+                last_y += 1
+                self.tiles_coordinates.append((last_x, last_y))
+            if r == 2  :
+                last_x -= 1
+                self.tiles_coordinates.append((last_x, last_y))
+                last_y += 1
+                self.tiles_coordinates.append((last_x, last_y))
+            
             last_y += 1
 
     def init_vertical_lines(self):
@@ -169,8 +193,8 @@ class MainWidget(Widget):
         # central_line_x = int(self.width / 2)
         # spacing = self.width * self.V_LINE_SPACING
         # offset = -int(self.V_NB_LINES/2) + 0.5
-        start_index = -int(self.V_NB_LINES/2 - 1)
-        end_index = int(self.V_NB_LINES/2) 
+        start_index = -int(self.V_NB_LINES/2) + 1
+        end_index = start_index + self.V_NB_LINES - 1
         min_x = self.get_line_x_from_index(start_index)
         max_x = self.get_line_x_from_index(end_index)
         # spacing_y = self.H_LINE_SPACING*self.height
